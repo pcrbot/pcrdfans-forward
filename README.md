@@ -1,44 +1,28 @@
 # pcrdfans_forward
 啊这。
 
-## 这是什么?
+## Pcrdfans API 转发
 
-一个随便瞎写的项目。
+此分支为 Python 版, 使用的 Web 框架: [FastAPI](https://github.com/tiangolo/fastapi) 。
 
-## 这能做什么 ?
+## 开始使用
 
-小明部署了一个 pcrbot, 但他发现 pcrdfans 的 APIkey 已经关闭申请渠道了, 碰巧小明的 hxd 申请到了 APIkey, 聪明的小明将这个项目打包发给了他的 hxd, 最后两个人都用上了 pcrdfans 的 API。
-
-## 这怎么用 ?
-
-### 如果你是小明的 hxd :
-
-在使用了 pcrdfans api 的服务器上 :
+提示: 请在能使用 Pcrdfans API 的服务器上运行本项目。
 
 ```bash
+git clone -b fastapi https://github.com/pcrbot/pcrdfans_forward
+
 pip3 install poetry
-
-git clone https://github.com/pcrbot/pcrdfans_forward
-
-cd pcrdfans_forward
 
 poetry install
 ```
 
-编辑 `config.py`, 填入自己的 APIkey。然后运行项目:
+在 `pcrdfans/config.py` 里面填入你的 API Key, 然后执行:
 
 ```bash
-poetry run python api.py
+poetry run python pcrdfans
 ```
 
-### 如果你是小明 :
+然后将您服务器的公网 ip 告知于您想要分享 API 的那个人, 并让 他 / 她 把 http 请求的 url 由原来的 `https://api.pcrdfans.com/x/v1/search` 修改成 `http://{你服务器的公网 ip}:7777/x/v1/search` 。
 
-把这个项目打包发给你的 hxd , 修改你 bot 的 `arena.py`, 将 Pcrdfans 的 API 地址由原来的 `https://api.pcrdfans.com/x/v1/search` 修改为 `http://{你 hxd 的服务器 ip}:7777/x/v1/search`, 然后谢谢你的 hxd。
-
-## 关于开源
-
-使用 MIT 开源协议, 作者只保留版权, 不做其它限制。
-
-## 老婆！老婆老婆老婆！老婆老婆老婆老婆老婆！
-
-反正出了事我不管.jpg
+若您不知道您使用的 bot 发起 http 请求部分的代码在哪, 您可尝试使用全文搜索 `https://api.pcrdfans.com/x/v1/search` 。
