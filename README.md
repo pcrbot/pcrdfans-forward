@@ -7,6 +7,12 @@
 
 Python 版请看 [这个分支](https://github.com/pcrbot/pcrdfans_forward/tree/fastapi) 。
 
+两分支略有差别:
+
+性能上: Golang 版性能约为 Python 版 5 - 6 倍。
+
+占用上: Golang 版约占 4.7mb, Python 版约占 24.4mb 。
+
 ## 开始使用
 
 使用之前请确保您正确安装 golang 环境。
