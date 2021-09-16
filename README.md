@@ -3,15 +3,15 @@
 
 ## Pcrdfans API 转发
 
-此分支为 golang 版, 使用的 Web 框架: [Gin](https://github.com/gin-gonic/gin) 。
+此分支为 golang 版, 使用标准库 。
 
 Python 版请看 [这个分支](https://github.com/pcrbot/pcrdfans_forward/tree/fastapi) 。
 
 两分支略有差别:
 
-性能上: Golang 版性能约为 Python 版 5 - 6 倍。
+性能上: ~~Golang 版性能约为 Python 版 5 - 6 倍。~~ 未计量
 
-占用上: Golang 版约占 4.7mb, Python 版约占 24.4mb 。
+占用上: Golang 版约占 1.4mb, Python 版约占 24.4mb 。
 
 ## 开始使用
 
@@ -23,7 +23,7 @@ git clone https://github.com/pcrbot/pcrdfans_forward
 cd pcrdfans_forward/pcrdfans
 ```
 
-编辑 `main.go`, 在第二十一行填入您的 Pcrdfans API Key, 保存。
+编辑 `main.go`, 在第二十行填入您的 Pcrdfans API Key, 保存。
 
 若您希望编译成适用于您当前使用的系统 / 平台的二进制文件, 请使用以下命令:
 
