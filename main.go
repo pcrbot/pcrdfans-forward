@@ -1,8 +1,8 @@
 /*
  * @Author: DiheChen
  * @Date: 2021-09-15 00:27:16
- * @LastEditTime: 2021-09-16 23:50:08
- * @LastEditors: DiheChen
+ * @LastEditTime : 2022-04-16 14:39:35
+ * @LastEditors  : DiheChen
  * @Description: None
  * @GitHub: https://github.com/DiheChen
  */
@@ -14,10 +14,20 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"sync"
 	"time"
 )
 
 var AuthKey = ""
+var httpClient = sync.Pool{
+	New: func() interface{} {
+		return &http.Client{
+			Transport: &http.Transport{
+				Proxy: http.ProxyFromEnvironment,
+			},
+		}
+	},
+}
 
 func main() {
 	http.HandleFunc("/x/v1/search", Handle)
@@ -26,6 +36,7 @@ func main() {
 
 func Handle(writer http.ResponseWriter, request *http.Request) {
 	fmt.Println(request.Host, request.Method, request.Proto)
+	client := httpClient.Get().(*http.Client)
 	if request.Method != "POST" {
 		return
 	}
@@ -36,8 +47,10 @@ func Handle(writer http.ResponseWriter, request *http.Request) {
 	req, _ := http.NewRequest("POST", "https://api.pcrdfans.com/x/v1/search", bytes.NewReader(postJSON))
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36")
 	req.Header.Set("Authorization", AuthKey)
-	resp, _ := (&http.Client{}).Do(req)
+	resp, _ := client.Do(req)
+	defer func() { _ = resp.Body.Close() }()
+	httpClient.Put(client)
 	body, _ := ioutil.ReadAll(resp.Body)
 	writer.Header().Set("Content-Type", "application/json")
-	writer.Write(body)
+	_, _ = writer.Write(body)
 }
